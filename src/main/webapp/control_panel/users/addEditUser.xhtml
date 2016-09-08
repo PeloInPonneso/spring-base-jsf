@@ -1,0 +1,42 @@
+<ui:composition template="/WEB-INF/template/default/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:o="http://omnifaces.org/ui">
+    
+	<ui:define name="body">
+		<o:form useRequestURI="true" prependId="false">
+			<p:growl id="msgs" showDetail="true"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" />
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Username" />
+                <p:inputText id="username" value="#{addEditUserMB.user.username}" required="true"/>
+                <h:outputLabel value="Email" />
+                <p:inputText id="email" type="email" value="#{addEditUserMB.user.email}" required="true"/>
+                <h:outputLabel value="Country" />
+                <p:selectOneMenu id="country" value="#{addEditUserMB.user.country}" required="true" >
+		            <f:selectItem itemLabel="Select One" itemValue="" />
+		            <f:selectItems var="country" value="#{addEditUserMB.countries}" itemLabel="#{country.countryName}" itemValue="#{country.language}" />
+		        </p:selectOneMenu>
+                <h:outputLabel value="Birth Day"  />
+                <p:calendar id="birth-day" value="#{addEditUserMB.user.birthDay}" pattern="dd-MM-yyyy" required="true"/>
+                <h:outputLabel value="Password" />
+                <p:password id="formPasswordOne" match="formPasswordTwo" value="#{addEditUserMB.user.formPasswordOne}" required="true" feedback="true" inline="true" />
+                <h:outputLabel value="Confirm Password" />
+                <p:password id="formPasswordTwo" value="#{addEditUserMB.user.formPasswordTwo}" required="true" />
+                <h:outputLabel value="Authorities" />
+                <p:selectManyCheckbox id="authorities" value="#{addEditUserMB.authorities}" layout="grid" columns="3">
+		            <f:selectItems value="#{addEditUserMB.roles}" var="role" itemLabel="#{role.authority}" itemValue="#{role.id}" />
+		        </p:selectManyCheckbox>
+                <h:outputLabel value="Enabled" />
+                <p:selectBooleanCheckbox id="enabled" value="#{addEditUserMB.user.enabled}" required="true"/>
+                <f:facet name="footer">
+                	<p:commandButton value="Salva" action="#{addEditUserMB.save}" ajax="false" validateClient="true" />
+                </f:facet>
+			</p:panelGrid>
+		</o:form>
+	</ui:define>
+</ui:composition>

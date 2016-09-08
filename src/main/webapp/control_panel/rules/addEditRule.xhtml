@@ -1,0 +1,25 @@
+<ui:composition template="/WEB-INF/template/default/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:o="http://omnifaces.org/ui">
+    
+	<ui:define name="body">
+		<o:form enctype="multipart/form-data" useRequestURI="true" prependId="false">
+			<p:growl id="msgs" showDetail="true"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<p:messages id="messages" showDetail="false" autoUpdate="true" />
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Name" />
+                <p:inputText id="name" value="#{addEditRuleMB.rule.name}" required="true"/>
+                <h:outputLabel value="File" />
+                <p:fileUpload value="#{addEditRuleMB.file}" mode="simple" required="true" />
+                <f:facet name="footer">
+                	<p:commandButton value="Salva" action="#{addEditRuleMB.save}" ajax="false" validateClient="true" />
+                </f:facet>
+			</p:panelGrid>
+		</o:form>
+	</ui:define>
+</ui:composition>

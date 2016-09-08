@@ -1,0 +1,48 @@
+<ui:composition template="/WEB-INF/template/default/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+     	
+	<ui:define name="body">
+		<h:form id="userTable" prependId="false">
+			<p:growl id="msgs" showDetail="true"/>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+		    <p:dataTable var="user" value="#{userMB.lazyModel}" editable="false"
+		    			 paginator="true" rows="3" lazy="true"
+		    			 rowsPerPageTemplate="1,2,3">
+		    			 
+		    	<p:column headerText="ID">
+		            <h:outputText value="#{user.id}" />
+		        </p:column>  
+		        <p:column headerText="Username">
+		            <h:outputText value="#{user.username}" />  
+		        </p:column>  
+		        <p:column headerText="Not Expired">  
+		        	<h:outputText value="#{user.accountNonExpired}" />
+		        </p:column>	
+		        <p:column headerText="Not Locked">  
+		        	<h:outputText value="#{user.accountNonLocked}" />
+		        </p:column>	
+		        <p:column headerText="Credentials Not Expired">  
+		        	<h:outputText value="#{user.credentialsNonExpired}" />
+		        </p:column>	
+		        <p:column headerText="Enabled">  
+		        	<h:outputText value="#{user.enabled}" /> 
+		        </p:column>
+		        <p:column headerText="Modifica">
+		        	<p:button icon="ui-icon-pencil" outcome="/control_panel/users/addEditUser.xhtml">
+		        		<f:param name="userId" value="#{user.id}" />
+		        	</p:button>
+				</p:column>
+		        <p:column headerText="Elimina">
+                    <p:commandButton icon="ui-icon-trash" action="#{userMB.remove(user)}" update=":userTable" ajax="false" />
+                </p:column>
+                <f:facet name="footer">
+                	<p:link outcome="/control_panel/users/addEditUser.xhtml" value="Nuovo Utente" />
+	            </f:facet>  	 
+		    </p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

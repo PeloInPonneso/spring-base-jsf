@@ -1,0 +1,23 @@
+<ui:composition template="/WEB-INF/template/default/template.xhtml"
+		xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:p="http://primefaces.org/ui"
+     	xmlns:h="http://java.sun.com/jsf/html"
+     	xmlns:ui="http://java.sun.com/jsf/facelets">
+     	
+	<ui:define name="body">
+		<form name="login" action="spring/login" method="post">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<h:panelGrid columns="2">
+				<p:outputLabel for="username">Username</p:outputLabel>
+				<p:inputText id="username" type="text"></p:inputText>
+				<p:outputLabel for="password">Password</p:outputLabel>
+				<p:inputText id="password" type="password"></p:inputText>
+			</h:panelGrid>
+			<div>
+                <button type="submit" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    <span class="ui-button-text ui-c">Login</span>
+                </button>
+            </div>
+		</form>
+	</ui:define>
+</ui:composition>

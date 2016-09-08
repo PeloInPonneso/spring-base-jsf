@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+			  version="2.1">
+			
+			<!-- Spring’s bean in Spring Ioc context, and JSF’s managed bean in JSF Ioc context, how to make both working together  -->
+			<application>
+				<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+				<resource-bundle>
+					<base-name>i18n.messages</base-name>
+					<var>message</var>
+	   			</resource-bundle>
+	   			<resource-bundle>
+					<base-name>app</base-name>
+					<var>app</var>
+	   			</resource-bundle>
+			</application>
+</faces-config>

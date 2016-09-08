@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:security="http://www.springframework.org/security/tags">
+    
+    <p:toolbar>
+    	<f:facet name="left">
+	    	<p:menubar>
+				<p:menuitem value="Home" url="/" />
+		 		<security:authorize access="isAnonymous()">
+					<p:menuitem value="Login" url="/login.xhtml" />
+				</security:authorize>
+				<security:authorize access="isAuthenticated()">
+					<p:submenu label="Control Panel">
+		   				<p:menuitem value="Users" url="/control_panel/users" />
+		  				<p:menuitem value="Roles" url="/control_panel/roles" />
+		  				<p:menuitem value="Rules" url="/control_panel/rules" />
+					</p:submenu>
+					<p:menuitem value="Logout" url="/spring/j_spring_security_logout" />
+				</security:authorize>
+			</p:menubar>
+		</f:facet>
+		<f:facet name="right">
+			<security:authorize access="isAuthenticated()">
+				<h:outputFormat value="#{message['welcome.message']}">
+   					<f:param value="#{applicationBaseMB.username}" />
+				</h:outputFormat>
+			</security:authorize>
+			<h:form prependId="false">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<p:selectOneMenu value="#{langMB.language}" onchange="submit()">
+		   			<f:selectItems value="#{langMB.locales}" var="locale" itemValue="#{locale.language}" itemLabel="#{locale.language}"/> 
+	   			</p:selectOneMenu>
+	   		</h:form>
+	   	</f:facet>
+	</p:toolbar>
+</html>
